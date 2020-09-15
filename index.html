@@ -10,7 +10,7 @@
       padding: 0;
       background-color: #000;
       color: #ffffff;
-      font-size: 52px;
+      font-size: 24px;
     }
 
     #app {
@@ -20,15 +20,47 @@
       align-items: center;
       justify-content: center;
     }
+
+    #app label {
+      display: block;
+    }
+
+    textarea,
+    input {
+      resize: none;
+      outline: none;
+      border-radius: 8px;
+      border: none;
+      background-color: #fff;
+    }
+
+    #app button {
+      background-color: #fff;
+      border: none;
+      display: block;
+      margin: auto;
+      font-size: 18px;
+      width: 100%;
+      max-width: 88px;
+      height: 40px;
+      border-radius: 8px;
+    }
+
+    .show-word {
+      font-size: 52px;
+    }
   </style>
 </head>
 <body>
   <div id="app">
     <div v-if="!isRun">
-      <textarea v-model="text" cols="30" rows="10"></textarea>
+      <label for="text">Put text there:</label>
+      <textarea v-model="text" id="text" cols="40" rows="16" spellcheck="false"></textarea>
+      <label for="speed">Select speed</label>
+      <input type="number" id="speed" v-model="speed"> words in minute
       <button type="button" @click="run">Run</button>
     </div>
-    <div v-else>
+    <div class="show-word" v-else>
       <span>
         {{ currentWord }}
       </span>
@@ -44,11 +76,13 @@
           isRun: false,
           currentWord: null,
           wordArray: [],
-          interval: null
+          interval: null,
+          speed: 200
         };
       },
       methods: {
         run() {
+          const seconds = 1000 / (this.speed / 60); 
           this.isRun = true;
           this.wordArray = this.text.split(' ');
           let i = 0;
@@ -59,8 +93,7 @@
             } else {
               clearInterval(this.interval);
             }
-          }, 250);
-          console.log(this.wordArray);
+          }, seconds);
         }
       }
     });

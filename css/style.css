@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #ffffff;
+  font-size: 24px;
+}
+
+#app {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#app label {
+  display: block;
+}
+
+textarea,
+input {
+  resize: none;
+  outline: none;
+  border-radius: 8px;
+  border: none;
+  background-color: #fff;
+}
+
+#app button {
+  background-color: #fff;
+  border: none;
+  display: block;
+  margin: auto;
+  font-size: 18px;
+  width: 100%;
+  max-width: 88px;
+  height: 40px;
+  border-radius: 8px;
+  outline: none;
+}
+
+.show-word {
+  font-size: 52px;
+}
+
+.progress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  z-index: 2;
+}
+
+.progress__bar {
+  height: 100%;
+  background-color: #fff;
+}

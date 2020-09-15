@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Скорочтение онлайн</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #ffffff;
+      font-size: 52px;
+    }
+
+    #app {
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div v-if="!isRun">
+      <textarea v-model="text" cols="30" rows="10"></textarea>
+      <button type="button" @click="run">Run</button>
+    </div>
+    <div v-else>
+      <span>
+        {{ currentWord }}
+      </span>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          text: null,
+          isRun: false,
+          currentWord: null,
+          wordArray: [],
+          interval: null
+        };
+      },
+      methods: {
+        run() {
+          this.isRun = true;
+          this.wordArray = this.text.split(' ');
+          let i = 0;
+          this.interval = setInterval(() => {
+            if (i < this.wordArray.length) {
+              this.currentWord = this.wordArray[i];
+              i++;
+            } else {
+              clearInterval(this.interval);
+            }
+          }, 250);
+          console.log(this.wordArray);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

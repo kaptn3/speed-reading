@@ -50,6 +50,20 @@
     .show-word {
       font-size: 52px;
     }
+
+    .progress {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      width: 100%;
+      z-index: 2;
+    }
+
+    .progress__bar {
+      height: 100%;
+      background-color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -67,6 +81,9 @@
         {{ currentWord }}
       </span>
       <button v-if="canRestart" @click="start">Restart</button>
+      <div class="progress">
+        <div class="progress__bar" :style="`width: ${ progress }%`"></div>
+      </div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
@@ -89,6 +106,9 @@
       computed: {
         seconds() {
           return 1000 / (this.speed / 60); 
+        },
+        progress() {
+          return ((this.indexOfArray) / this.wordArray.length) * 100;
         }
       },
       methods: {

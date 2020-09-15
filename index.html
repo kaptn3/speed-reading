@@ -44,6 +44,7 @@
       max-width: 88px;
       height: 40px;
       border-radius: 8px;
+      outline: none;
     }
 
     .show-word {
@@ -58,9 +59,10 @@
       <textarea v-model="text" id="text" cols="40" rows="16" spellcheck="false"></textarea>
       <label for="speed">Select speed</label>
       <input type="number" id="speed" v-model="speed"> words in minute
-      <button type="button" @click="run">Run</button>
+      <button type="button" @click="start">Run</button>
     </div>
     <div class="show-word" v-else>
+      <button @click="pauseHandle">Pause</button>
       <span>
         {{ currentWord }}
       </span>
@@ -77,23 +79,40 @@
           currentWord: null,
           wordArray: [],
           interval: null,
-          speed: 200
+          speed: 200,
+          indexOfArray: 0,
+          isPause: false
         };
       },
+      computed: {
+        seconds() {
+          return 1000 / (this.speed / 60); 
+        }
+      },
       methods: {
-        run() {
-          const seconds = 1000 / (this.speed / 60); 
+        start() {
           this.isRun = true;
           this.wordArray = this.text.split(' ');
-          let i = 0;
+          this.run();
+        },
+        run() {
+          console.log(this.indexOfArray);
           this.interval = setInterval(() => {
-            if (i < this.wordArray.length) {
-              this.currentWord = this.wordArray[i];
-              i++;
+            if (this.indexOfArray < this.wordArray.length) {
+              this.currentWord = this.wordArray[this.indexOfArray];
+              this.indexOfArray++;
             } else {
               clearInterval(this.interval);
             }
-          }, seconds);
+          }, this.seconds);
+        },
+        pauseHandle() {
+          this.isPause = !this.isPause;
+          if (this.isPause) {
+            clearInterval(this.interval);
+          } else {
+            this.run();
+          }
         }
       }
     });

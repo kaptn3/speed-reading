@@ -80,7 +80,10 @@
       <span>
         {{ currentWord }}
       </span>
-      <button v-if="canRestart" @click="start">Restart</button>
+      <div v-if="isEnd">
+        <button @click="reset">New text</button>
+        <button @click="start">Restart</button>
+      </div>
       <div class="progress">
         <div class="progress__bar" :style="`width: ${ progress }%`"></div>
       </div>
@@ -100,7 +103,7 @@
           speed: 200,
           indexOfArray: 0,
           isPause: false,
-          canRestart: false
+          isEnd: false
         };
       },
       computed: {
@@ -112,6 +115,16 @@
         }
       },
       methods: {
+        reset() {
+          this.text = null;
+          this.isRun = false;
+          this.currentWord = null;
+          this.wordArray = [];
+          this.interval = null;
+          this.indexOfArray = 0;
+          this.isPause = false;
+          this.isEnd = false;
+        },
         start() {
           this.isRun = true;
           this.wordArray = this.text.split(' ');
@@ -119,13 +132,13 @@
           this.run();
         },
         run() {
-          this.canRestart = false;
+          this.isEnd = false;
           this.interval = setInterval(() => {
             if (this.indexOfArray < this.wordArray.length) {
               this.currentWord = this.wordArray[this.indexOfArray];
               this.indexOfArray++;
             } else {
-              this.canRestart = true;
+              this.isEnd = true;
               clearInterval(this.interval);
             }
           }, this.seconds);

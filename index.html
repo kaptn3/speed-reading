@@ -66,6 +66,7 @@
       <span>
         {{ currentWord }}
       </span>
+      <button v-if="canRestart" @click="start">Restart</button>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
@@ -81,7 +82,8 @@
           interval: null,
           speed: 200,
           indexOfArray: 0,
-          isPause: false
+          isPause: false,
+          canRestart: false
         };
       },
       computed: {
@@ -93,26 +95,24 @@
         start() {
           this.isRun = true;
           this.wordArray = this.text.split(' ');
+          this.indexOfArray = 0;
           this.run();
         },
         run() {
-          console.log(this.indexOfArray);
+          this.canRestart = false;
           this.interval = setInterval(() => {
             if (this.indexOfArray < this.wordArray.length) {
               this.currentWord = this.wordArray[this.indexOfArray];
               this.indexOfArray++;
             } else {
+              this.canRestart = true;
               clearInterval(this.interval);
             }
           }, this.seconds);
         },
         pauseHandle() {
           this.isPause = !this.isPause;
-          if (this.isPause) {
-            clearInterval(this.interval);
-          } else {
-            this.run();
-          }
+          this.isPause ? clearInterval(this.interval) : this.run();
         }
       }
     });

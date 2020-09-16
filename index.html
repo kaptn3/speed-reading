@@ -14,16 +14,16 @@
       <textarea v-model="text" id="text" cols="40" rows="16" spellcheck="false"></textarea>
       <label for="speed">Select speed</label>
       <input type="number" id="speed" v-model="speed"> words in minute
-      <button type="button" @click="start">Run</button>
+      <button class="button" type="button" @click="start">Run</button>
     </div>
     <div class="show-word" v-else>
-      <button @click="pauseHandle">Pause</button>
-      <span>
+      <button v-if="!isEnd" :style="`background-image: url(${ backgroundBtnPause })`" class="pause" @click="pauseHandle"></button>
+      <span v-if="!isEnd">
         {{ currentWord }}
       </span>
-      <div v-if="isEnd">
-        <button @click="reset">New text</button>
-        <button @click="start">Restart</button>
+      <div v-if="isEnd" class="btn-finish-wrap">
+        <button class="btn-finish" @click="reset">New text</button>
+        <button class="btn-finish" @click="start">Restart</button>
       </div>
       <div class="progress">
         <div class="progress__bar" :style="`width: ${ progress }%`"></div>

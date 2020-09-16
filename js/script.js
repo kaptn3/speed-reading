@@ -21,6 +21,9 @@ var app = new Vue({
     },
     wordArray() {
       return this.text.split(' ');
+    },
+    backgroundBtnPause() {
+      return this.isPause ? 'img/play.svg'  : 'img/pause.svg';
     }
   },
   methods: {

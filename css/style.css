@@ -18,6 +18,15 @@ body {
   display: block;
 }
 
+button {
+  background-color: transparent;
+  border: none;
+  display: block;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+}
+
 textarea,
 input {
   resize: none;
@@ -27,17 +36,14 @@ input {
   background-color: #fff;
 }
 
-#app button {
+#app .button {
   background-color: #fff;
-  border: none;
-  display: block;
   margin: auto;
   font-size: 18px;
   width: 100%;
   max-width: 88px;
   height: 40px;
   border-radius: 8px;
-  outline: none;
 }
 
 .show-word {
@@ -56,4 +62,46 @@ input {
 .progress__bar {
   height: 100%;
   background-color: #fff;
+}
+
+.pause {
+  width: 56px;
+  height: 56px;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.btn-finish-wrap {
+  display: flex;
+}
+
+.btn-finish {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  color: #fff;
+  font-size: 24px;
+}
+
+.btn-finish::before {
+  content: '';
+  display: block;
+  background: url(../img/restart.svg) no-repeat center;
+  background-size: contain;
+  width: 32px;
+  height: 32px;
+  margin-right: 8px;
+}
+
+.btn-finish:first-child {
+  margin-right: 32px;
+}
+
+.btn-finish:first-child::before {
+  background-image: url(../img/rocket.svg);
 }

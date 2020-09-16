@@ -36,6 +36,11 @@ input {
   background-color: #fff;
 }
 
+input {
+  height: 24px;
+  font-size: 16px;
+}
+
 #app .button {
   background-color: #fff;
   margin: auto;
@@ -44,6 +49,7 @@ input {
   max-width: 88px;
   height: 40px;
   border-radius: 8px;
+  margin-top: 16px;
 }
 
 .show-word {

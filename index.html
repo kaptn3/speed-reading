@@ -8,7 +8,7 @@
   <title>Speed Reading Online</title>
 </head>
 <body>
-  <div id="app">
+  <div id="app" v-cloak>
     <div v-if="!isRun">
       <label for="text">Put text there:</label>
       <textarea v-model="text" id="text" cols="40" rows="16" spellcheck="false"></textarea>

@@ -26,6 +26,14 @@ var app = new Vue({
       return this.isPause ? 'img/play.svg'  : 'img/pause.svg';
     }
   },
+  mounted() {
+    const t = this;
+    document.body.addEventListener('keyup', (e) => {
+      if (e.keyCode == 32 && t.isRun) {
+        t.pauseHandle();
+      }
+    });
+  },
   methods: {
     reset() {
       this.text = '';

@@ -4,7 +4,6 @@ var app = new Vue({
     return {
       text: '',
       isRun: false,
-      currentWord: null,
       interval: null,
       speed: 200,
       indexOfArray: 0,
@@ -24,13 +23,22 @@ var app = new Vue({
     },
     backgroundBtnPause() {
       return this.isPause ? 'img/play.svg'  : 'img/pause.svg';
+    },
+    currentWord() {
+      return this.wordArray[this.indexOfArray] || null;
     }
   },
   mounted() {
     const t = this;
     document.body.addEventListener('keyup', (e) => {
-      if (e.keyCode == 32 && t.isRun) {
-        t.pauseHandle();
+      if (t.isRun) {
+        if (e.keyCode === 32) {
+          t.pauseHandle();
+        } else if (e.keyCode === 37) {
+          this.indexOfArray -= 1;
+        } else if (e.keyCode === 39) {
+          this.indexOfArray += 1;
+        }
       }
     });
   },
@@ -38,7 +46,6 @@ var app = new Vue({
     reset() {
       this.text = '';
       this.isRun = false;
-      this.currentWord = null;
       this.interval = null;
       this.indexOfArray = 0;
       this.isPause = false;
@@ -55,7 +62,6 @@ var app = new Vue({
       this.isEnd = false;
       this.interval = setInterval(() => {
         if (this.indexOfArray < this.wordArray.length) {
-          this.currentWord = this.wordArray[this.indexOfArray];
           this.indexOfArray++;
         } else {
           this.isEnd = true;
